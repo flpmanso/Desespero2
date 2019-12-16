@@ -2,7 +2,7 @@ package com.example.desespero2;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Post {
 
@@ -10,6 +10,7 @@ public class Post {
     private String nome;
     private Double latitude;
     private Double longitude;
+    private java.sql.Date dataInclusao;
 
     public Post(String nome) {
         this.nome = nome;
@@ -24,6 +25,14 @@ public class Post {
 
     public Post() {
 
+    }
+
+    public Date getDataInclusao() {
+        return dataInclusao;
+    }
+
+    public void setDataInclusao(Date dataInclusao) {
+        this.dataInclusao = dataInclusao;
     }
 
     public int getId() {

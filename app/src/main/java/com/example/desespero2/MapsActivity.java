@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -76,8 +77,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//        Gson gson = new GsonBuilder().serializeNulls().create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -100,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
 
@@ -154,6 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 post.setNome(extras.getString("passarNome"));
 
+                post.setDataInclusao(new Date(System.currentTimeMillis()));
                 post.setLatitude(latitude);
                 post.setLongitude(longitude);
 
@@ -233,13 +237,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 marker.getPosition();
 
                 post.getId();
-                Call<Void> call = jsonPlaceHolderApi.deletePost(151);
+                Call<Void> call = jsonPlaceHolderApi.deletePost(197);
 
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         Toast.makeText(MapsActivity.this,
-                                "onClick Lat: " ,
+                                "Marcador apagado!" ,
                                 Toast.LENGTH_SHORT).show();
                     }
 
